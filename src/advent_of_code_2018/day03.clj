@@ -34,5 +34,20 @@
        (count)))
 
 
+;; Part Two
+
+
+(defn part2 []
+  (let [claims  (map parse-data (str/split-lines input))
+        fq      (frequencies (mapcat grid-coords claims))]
+    (->> (filter (fn [claim]
+                   (every? (fn [coord] (= (get fq coord 0) 1))
+                     (grid-coords claim)))
+                 claims)
+         (first)
+         (:id))))
+
+
 (defn -main []
-  (println "part1:" (part1)))
+  (println "part1:" (part1))
+  (println "part2:" (part2)))
