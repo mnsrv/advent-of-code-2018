@@ -1,6 +1,13 @@
-(defn getFrequencies [input]
-  (->> input
-       clojure.string/split-lines
+(ns advent-of-code-2018.day02
+  (:require
+    [clojure.string :as str]))
+
+
+(def input (slurp "inputs/day02"))
+
+
+(def appearances
+  (->> (str/split-lines input)
        (map frequencies)
        (map vals)
        (map set)
@@ -8,16 +15,13 @@
        frequencies))
 
 
-(->> (select-keys (getFrequencies input) [2 3])
-     vals
-     (apply *))
+(defn part1 []
+  (->> (select-keys appearances [2 3])
+       vals
+       (apply *)))
 
 
 ;; Part Two
-
-
-(def inputVector
-  (clojure.string/split-lines input))
 
 
 (defn char-diff [s1 s2]
@@ -44,4 +48,10 @@
           input))
 
 
-(find-pair inputVector)
+(defn part2 []
+  (find-pair (str/split-lines input)))
+
+
+(defn -main []
+  (println "part1:" (part1))
+  (println "part2:" (part2)))

@@ -1,5 +1,9 @@
-(def input-lines
-  (clojure.string/split-lines input))
+(ns advent-of-code-2018.day03
+  (:require
+    [clojure.string :as str]))
+
+
+(def input (slurp "inputs/day03"))
 
 
 (defn parse-int [s] (Integer/parseInt s))
@@ -20,10 +24,15 @@
     [x y]))
 
 
-(->> input-lines
-     (map parse-data)
-     (mapcat grid-coords)
-     (frequencies)
-     (vals)
-     (filter #(> % 1))
-     (count))
+(defn part1 []
+  (->> (str/split-lines input)
+       (map parse-data)
+       (mapcat grid-coords)
+       (frequencies)
+       (vals)
+       (filter #(> % 1))
+       (count)))
+
+
+(defn -main []
+  (println "part1:" (part1)))
