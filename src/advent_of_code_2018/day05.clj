@@ -31,7 +31,7 @@
     :else         (= ch2 (invert ch1))))
 
 
-(defn part1 []
+(defn part1 [input]
   (->> input
        (reduce
          (fn [s ch2]
@@ -41,5 +41,23 @@
        count))
 
 
+;; Part Two
+
+
+(defn part2 []
+  (reduce
+    (fn [m ch]
+      (let [CH               (Character/toUpperCase ch)
+            inputWithoutChar (->> input
+                                  (remove #{ch CH})
+                                  (str/join))
+            reduced (part1 inputWithoutChar)]
+        (println ch CH "=>" reduced)
+        (min m reduced)))
+    Long/MAX_VALUE
+    "abcdefghijklmnopqrstuvwxyz"))
+
+
 (defn -main []
-  (println "part1:" (part1)))
+  (println "part1:" (part1 input))
+  (println "part2:" (part2)))
