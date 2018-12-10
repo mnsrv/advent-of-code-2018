@@ -9,7 +9,7 @@
 (defn remove-last [str]
   (if (char? str)
     ""
-    (str/join "" (drop-last str))))
+    (subs str 0 (- (count str) 1))))
 
 
 (defn get-last [str]
@@ -19,11 +19,16 @@
     :else (last str)))
 
 
+(defn invert [ch]
+  (if (Character/isLowerCase ch)
+    (Character/toUpperCase ch)
+    (Character/toLowerCase ch)))
+
+
 (defn triggered? [ch1 ch2]
   (cond
-    (string? ch1)               false
-    (Character/isLowerCase ch1) (= ch2 (last (str/upper-case ch1)))
-    :else (= ch2 (last (str/lower-case ch1)))))
+    (string? ch1) false
+    :else         (= ch2 (invert ch1))))
 
 
 (defn part1 []
